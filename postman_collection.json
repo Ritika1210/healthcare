@@ -1,0 +1,132 @@
+{
+  "info": {
+    "name": "HealthBackend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ritik\",\n  \"email\": \"ritik@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "auth", "register"] }
+      }
+    },
+    {
+      "name": "2. Auth - Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const res = pm.response.json();",
+              "if (res.token) pm.collectionVariables.set('token', res.token);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"ritik@example.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] }
+      }
+    },
+    {
+      "name": "3. Patients - Create Patient",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Aman Kumar\",\n  \"age\": 28,\n  \"gender\": \"Male\",\n  \"contact\": \"+91-9876543210\",\n  \"address\": \"Delhi, India\",\n  \"medicalHistory\": \"No major allergies\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/patients", "host": ["{{baseUrl}}"], "path": ["api", "patients"] }
+      }
+    },
+    {
+      "name": "4. Patients - Get All Patients",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/api/patients", "host": ["{{baseUrl}}"], "path": ["api", "patients"] }
+      }
+    },
+    {
+      "name": "5. Doctors - Create Doctor",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Dr. Sharma\",\n  \"specialization\": \"Cardiology\",\n  \"email\": \"sharma@hospital.com\",\n  \"phone\": \"+91-9999988888\",\n  \"yearsOfExperience\": 10\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/doctors", "host": ["{{baseUrl}}"], "path": ["api", "doctors"] }
+      }
+    },
+    {
+      "name": "6. Doctors - Get All Doctors",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{baseUrl}}/api/doctors", "host": ["{{baseUrl}}"], "path": ["api", "doctors"] }
+      }
+    },
+    {
+      "name": "7. Mappings - Assign Doctor to Patient",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patientId\": 1,\n  \"doctorId\": 1,\n  \"notes\": \"Primary consulting cardiologist\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/mappings", "host": ["{{baseUrl}}"], "path": ["api", "mappings"] }
+      }
+    },
+    {
+      "name": "8. Mappings - Get All Mappings",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/api/mappings", "host": ["{{baseUrl}}"], "path": ["api", "mappings"] }
+      }
+    },
+    {
+      "name": "9. Mappings - Get Doctors By Patient ID",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/api/mappings/1", "host": ["{{baseUrl}}"], "path": ["api", "mappings", "1"] }
+      }
+    }
+  ]
+}
