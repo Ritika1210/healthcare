@@ -50,12 +50,18 @@ healthbackend/
 
 ## ⚙️ Installation & Setup
 
-### 1. Install Dependencies
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Ritika1210/healthcare.git
+cd healthcare
+```
+
+### 2. Install Dependencies
 ```bash
 npm install
 ```
 
-### 2. Configure Environment Variables
+### 3. Configure Environment Variables
 Create a `.env` file in the root directory (refer to `.env.example`):
 ```env
 PORT=5000
@@ -63,7 +69,7 @@ DATABASE_URL="postgresql://username:password@localhost:5432/healthcare_db"
 JWT_SECRET="your_jwt_secret_key"
 ```
 
-### 3. Start the Server
+### 4. Start the Server
 ```bash
 # Start in development mode (with auto reload)
 npm run dev
