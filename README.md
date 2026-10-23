@@ -170,3 +170,6 @@ The server will automatically connect to PostgreSQL and synchronize all database
   "notes": "Primary consultant"
 }
 ```
+## 🧪 Testing
+
+You can test all the API endpoints using **Thunder Client in VS Code** or **Postman** by sending requests to `http://localhost:5000` as per the endpoints and sample JSON bodies listed above.
